@@ -13,6 +13,8 @@ export class App extends Component {
     bad: 0
   };
 
+  total =  this.state.good +  this.state.neutral +  this.state.bad;
+  positivePercentage = Math.round(this.state.good / this.total *100);
   title = this.props.title; 
   feedType = Object.keys(this.state);
 
@@ -22,7 +24,6 @@ export class App extends Component {
     })
   };
 
-
   render() {
     return (
       <Layout>
@@ -30,7 +31,9 @@ export class App extends Component {
           <FeedbackOptions options={this.feedType} onLeaveFeedback={this.handleFeedback} />
        </Section>
         <Section title="Statistics">
-          <Statistics good={this.state.good} neutral={this.state.neutral} bad={this.state.bad} />
+          <Statistics good={this.state.good} neutral={this.state.neutral} bad={this.state.bad} 
+            total={this.state.good +  this.state.neutral +  this.state.bad} 
+            positivePercentage={Math.round(this.state.good / (this.state.good +  this.state.neutral +  this.state.bad) *100) || 0} />
         </Section>
         <GlobalStyle />
       </Layout>

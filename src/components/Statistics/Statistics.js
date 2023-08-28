@@ -1,9 +1,7 @@
 import { Notification } from "components/Notification/Notification";
 import { List, ListItem, Label, Percent, Wrapper } from "./Statistics.styled"
 
-// <Statistics good={} neutral={} bad={} total={} positivePercentage={}>
-export const Statistics = ({good, neutral, bad}) =>{
-   const total = good + neutral + bad;
+export const Statistics = ({good, neutral, bad, total, positivePercentage}) =>{
    if (total === 0) {
       return(
          <Wrapper>
@@ -11,10 +9,8 @@ export const Statistics = ({good, neutral, bad}) =>{
          </Wrapper>
       )
    };
-   const positivePercentage = Math.round(good / total *100);
    return(
       <Wrapper>
-         {/* {title ? <Title>{title}</Title> : ''} */}
          <List>
             <ListItem key='1' >
                <Label>Good: </Label>
@@ -30,9 +26,9 @@ export const Statistics = ({good, neutral, bad}) =>{
             </ListItem>
             <ListItem key='4' >
                <Label>Total: </Label>
-               <Percent>{total}</Percent>
+               <Percent>{total || 0}</Percent>
             </ListItem>
-            <ListItem key='5' >
+            <ListItem key='5' positivepercentage={positivePercentage}>
                <Label>Positive feedback: </Label>
                <Percent>{positivePercentage}%</Percent>
             </ListItem>
