@@ -13,10 +13,15 @@ export class App extends Component {
     bad: 0
   };
 
-  total =  this.state.good +  this.state.neutral +  this.state.bad;
-  positivePercentage = Math.round(this.state.good / this.total *100);
-  title = this.props.title; 
   feedType = Object.keys(this.state);
+
+  countTotalFeedback = () =>{
+    return  this.state.good +  this.state.neutral +  this.state.bad;
+  }
+
+  countPositiveFeedbackPercentage = () =>{
+    return Math.round(this.state.good / this.countTotalFeedback() *100);
+  }
 
   handleFeedback = (ev) => {
     this.setState(prevState =>{
@@ -32,8 +37,8 @@ export class App extends Component {
        </Section>
         <Section title="Statistics">
           <Statistics good={this.state.good} neutral={this.state.neutral} bad={this.state.bad} 
-            total={this.state.good +  this.state.neutral +  this.state.bad} 
-            positivePercentage={Math.round(this.state.good / (this.state.good +  this.state.neutral +  this.state.bad) *100) || 0} />
+            total={this.countTotalFeedback()} 
+            positivePercentage={this.countPositiveFeedbackPercentage()} />
         </Section>
         <GlobalStyle />
       </Layout>
